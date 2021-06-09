@@ -1,0 +1,32 @@
+/*求最大值*/
+#include<stdio.h>
+
+int main()
+
+{
+
+float max;
+
+float s=0.0;
+
+float a[6];
+
+int i;
+
+for(i=0;i<6;i++)
+
+scanf("%f",&a[i]);
+
+max=a[0]; //假设a[0]为最大值
+
+for(i=1;i<6;i++)
+
+if(max<a[i]) /*让每个元素与max 比较。*/
+
+max=a[i]; /*若a[i]大则赋值给 max */
+
+printf("最大值是：%f\n",max);
+
+/*输出最大值*/
+
+}
