@@ -1,0 +1,17 @@
+/*编写一个程序，根据用户输入的期末考试成绩输出相应的成绩评定信息。成绩大于等于90分输出优，成绩大于等于80分小于90分输出良，成绩大于等于60分小于80分输出中，成绩小于60分输出差(成绩评定)*/
+01 	#include <stdio.h>
+02 	void main()
+03 	{
+04 		float grade;
+05 		printf("\n请输入期末考试成绩:");
+06 		scanf("%f",&grade);
+07 		if(grade>=90)
+08 			printf("\n优");
+09 		else if(grade>=80 && grade<90)
+10 		printf("\n良");
+11 		else if(grade>=60 && grade<80)
+12 			printf("\n中");
+13 		else 
+14 			printf("\n差");
+15 		printf("\n");
+16 	}
