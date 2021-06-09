@@ -1,0 +1,247 @@
+/*学生信息管理系统*/
+#include <stdio.h>
+#include <string.h>
+ 
+struct student   
+{
+ long int num;
+ char name[20];
+ int age;
+ char sex[4];
+ char b[30];
+ char p[15];
+};
+int n=0;
+struct student stu[100];
+struct student *p;
+
+void lr();
+void ll();
+void cx();
+void xg();
+void sc();
+
+void main()
+{
+int z;
+    printf("+---------------------------+\n");
+    printf("|  欢迎使用学生信息管理系统 |\n");
+    printf("+---------------------------+\n");
+    printf("提示：为保证您的操作得到保存，请按正常顺序退出系统^_^\n");
+    do
+    {
+        printf("\n\t\t\t--------------------------------\n");
+        printf("\t\t\t+            主菜单            |\n");
+        printf("\t\t\t--------------------------------\n");
+        printf("\t\t\t+    [1]----录入学生信息       |\n");
+        printf("\t\t\t+    [2]----浏览学生信息       |\n");
+        printf("\t\t\t+    [3]----查询学生信息       |\n");
+        printf("\t\t\t+    [4]----删除学生信息       |\n");
+        printf("\t\t\t+    [5]----修改学生信息       |\n");
+        printf("\t\t\t+    [0]----退出系统           |\n");
+        printf("\t\t\t--------------------------------\n");
+        printf("请输入您的选择：");
+        scanf("%d", &z);
+        switch(z)
+        {
+        case 0 :    break;
+        case 1 :lr();break;
+        case 2 :ll();break;
+        case 3 :cx();break;
+        case 4 :sc();break;
+        case 5 :xg();break;
+        default:printf("\n无效选项!");
+        }
+  }
+    while(z!= 0);
+}
+
+void lr()/*录入函数*/
+{
+ int y;
+ if(n==0)
+  p=stu;
+ do
+ {
+   printf("--------------------\n");
+   printf("请输入学生的学号:");
+   scanf("%ld",&p->num);
+   printf("请输入学生的姓名:");
+   scanf("%s",p->name);
+   printf("请输入学生的年龄:");
+   scanf("%d",&p->age);
+   printf("请输入学生的性别:");
+   scanf("%s",p->sex);
+   printf("请输入学生的地址:");
+   scanf("%s",p->b);
+   printf("请输入学生的电话:");
+   scanf("%s",p->p);
+   n++;
+   p++;
+   printf("\n1.继续输入.\n0.输入完毕.\n");
+   printf("请选择：");
+   scanf("%d",&y);
+  }
+ while(y==1);
+ printf("提示：输入完毕!你一共输入%d个\n",n);
+
+}
+
+void ll()/*浏览函数*/
+{
+ int i,j;
+  if(n!=0)
+  { printf("学生总数:%d\n", n);
+  printf("学号\t姓名\t年龄\t性别\t地址\t\t电话\n");
+  printf("-----------------------------------------------------\n");
+  for(i=0;i<n;i++)
+  printf("%ld\t%s\t%d\t%s\t%s\t\t%s\n",stu[i].num,stu[i].name,stu[i].age,stu[i].sex,stu[i].b,stu[i].p);
+  }
+  else printf("提示:无学生数据，请输入数据！");
+ }
+
+void cx()/*查询函数*/
+{
+ int c;
+ int w,i,j=0;
+ char name[20];
+ if(n!=0)
+ {
+ do{    printf("\n");
+        printf("+--------------------+\n");
+        printf("| 按学号查询  请按 1 |\n");
+        printf("| 按姓名查询  请按 2 |\n");        
+        printf("| 取消        请按 0 |\n");
+        printf("+--------------------+\n");
+        printf("请输入您的选择：");
+        scanf("%d", &c);
+        switch(c)
+        {
+            case 0:break;
+            case 1:
+                   printf("请输入学生的学号;");
+                   scanf("%ld", &w);
+                   printf("\n");
+                   for(i=0;i<n;i++)
+                   if(stu[i].num==w)
+                   {
+                    printf("\n学号\t姓名\t年龄\t性别\t地址\t\t电话\n");
+                    printf("%ld\t%s\t%d\t%s\t%s\t\t%s\n",stu[i].num,stu[i].name,stu[i].age,stu[i].sex,stu[i].b,stu[i].p);
+                    j=1;
+                   }
+                   if(j==0)
+                   printf("提示:没有该学生记录，请核对！");
+                   break;
+            case 2:
+                   printf("请输入学生的姓名：");
+                   scanf("%s", name);
+                   printf("\n");
+                   for(i=0;i<n;i++)
+                   if(strcmp(name,stu[i].name)==0)
+                   {
+                    printf("\n学号\t姓名\t年龄\t性别\t地址\t\t电话\n");
+                    j=1;
+                    printf("%ld\t%s\t%d\t%s\t%s\t\t%s\n",stu[i].num,stu[i].name,stu[i].age,stu[i].sex,stu[i].b,stu[i].p);
+                   }
+                  if(j==0)
+                  printf("提示:没有该学生记录，请核对！");
+                  break;
+        default:
+                printf("\n提示:无效选项!");
+                break;
+       }
+
+    }while(c!= 0);
+  }else  printf("提示:无学生数据，请输入数据！");
+return;
+}
+
+void xg()/*修改函数*/
+{
+ long int num;
+ int i,j,c;
+ if(n!=0)
+ {
+  printf("请输入您要修改的学生的学号：");
+  scanf("%ld", &num);
+  printf("\n");
+  for(i=0;i<n;i++)
+  if(stu[i].num==num)
+  j=i;
+  do{
+      printf("请选择您要修改的学生的信息内容：\n");
+      printf("+----------------------+\n");
+      printf("| 姓名          请按 1 |\n");
+      printf("| 年龄          请按 2 |\n");
+      printf("| 性别          请按 3 |\n");
+      printf("| 学号          请按 4 |\n");
+      printf("| 地址          请按 5 |\n");
+      printf("| 电话          请按 6 |\n");
+      printf("| 取消          请按 0 |\n");
+      printf("+----------------------+\n");
+      printf("请输入您的选择：");
+      scanf("%d", &c);
+      printf("\n");
+      switch(c)
+           {
+        case 0:break;
+
+        case 1:printf("请输入新姓名：");
+               scanf("%s",stu[j].name);
+               break;
+        case 2:printf("请输入新年龄：");
+               scanf("%d",&stu[j].age);
+               break;
+        case 3:printf("请输入新性别：");
+               scanf("%s",stu[j].sex);
+               break;
+        case 4:printf("请输入新学号：");
+               scanf("%ld",&stu[j].num);
+               break;
+        case 5:printf("请输入新地址：");
+               scanf("%s",stu[j].b);
+               break;
+        case 6:printf("请输入新电话：");
+               scanf("%s",stu[j].p);
+               break;
+        default:
+                printf("\n无效选项!");
+                break;
+        }
+
+    }while(c!= 0);
+  }else   printf("提示:无学生数据，请输入数据！");
+}
+
+void sc()/*删除函数*/
+{
+ long int num;
+ int i,j,e; 
+ if(n!=0)
+ {
+ printf("学号\t姓名\t年龄\t性别\t地址\t\t电话\n");
+  printf("-----------------------------------------------------\n");
+  for(i=0;i<n;i++)
+  printf("%ld\t%s\t%d\t%s\t%s\t\t%s\n",stu[i].num,stu[i].name,stu[i].age,stu[i].sex,stu[i].b,stu[i].p);
+  printf("请输入您要删除的学生的学号：");
+  scanf("%ld", &num);
+  printf("\n");
+  for(i=0;i<n;i++)
+  if(num==stu[i].num)
+    j=i;
+  if(j!=(n-1))
+    {
+     for(e=i-1;e<n;e++,j++)
+     {
+      stu[j].num=stu[j+1].num;
+      strcpy(stu[j].name,stu[j+1].name);
+      strcpy(stu[j].sex,stu[j+1].sex);
+      stu[j].age=stu[j+1].age;
+      strcpy(stu[j].b,stu[j+1].b);
+      strcpy(stu[j].p,stu[j+1].p);
+      n--;p--;
+     }
+    }else {n--;p--;}
+  printf("提示:删除完毕！");
+  }else    printf("提示:无学生数据，请输入数据！");
+}
