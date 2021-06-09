@@ -1,0 +1,49 @@
+/*简单的计数器*/
+#include "stdio.h"
+#include "stdlib.h"
+#define FilePath "counter.dat"
+
+int readCounter(char* path);
+
+void writeCounter(int count,char* path);
+
+void main()
+{
+	int count=0;
+	count=readCounter(FilePath)+1;
+	printf("该程序已运行 ：%d次\n",count);
+	printf("--------------------------------\n");
+	printf("下面将运行次数写入计数器文件(counter.dat)......\n");
+	writeCounter(count,FilePath);
+	printf("写入文件结束！\n");
+	printf("程序运行结束！\n");
+	printf("---------------------------\n");
+	system("pause");
+}
+
+int readCounter(char* path)
+{
+	FILE* fp;
+	int count;
+	if((fp=fopen(path,"r"))==NULL)
+	{
+		printf("没有计数器文件:counter.dat,保存运行次数时将新建该文件\n");
+		return 0;
+	}
+	fscanf(fp,"%d",&count);
+	fclose(fp);
+	return count;  
+}
+
+void  writeCounter(int count,char* path)
+{
+	FILE* fp;
+	if((fp=fopen(path,"w"))==NULL)
+	{
+		printf("无法创建计数器文件夹！\n");
+		return;
+	}
+	fprintf(fp,"%d",count);
+	fclose(fp);
+}
+
