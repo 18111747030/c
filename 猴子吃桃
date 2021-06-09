@@ -1,26 +1,22 @@
-/*猴子吃桃问题*/
-#include "stdio.h"
- int peachcount(int n)
- {
-
-   int count=1;
-
-   int i;
-
-   for(i=1;i<n;i++)
-   {
-      count=(count+1)*2;
-   }
-    return count;
- }
- void main()
- {
-    int n;
-    printf("----------猴子吃桃问题------------\n");
- printf("请输入猴子在第几天过后吃得只剩下了一个桃子：");
- scanf("%d",&n);
-	int count;
-    count=peachcount(n);
-    printf("猴子在第%d天过后吃得只剩下了一个桃子，");
- printf("第一天所摘下的桃子数为%d个\n",n,count);
- }
+/*猴子吃桃*/
+#include <stdio.h>
+int MonkeyEatPeach(int n, int k)//n代表第n天,k表示第k天只剩下一个桃子
+{
+int sum;
+if (n==k) //表示递归的结束条件
+sum=1;
+else
+sum=2*(MonkeyEatPeach(n+1,k)+1); //递归调用
+return sum;
+}
+void main()
+{
+int k=10,sum=0;
+printf("请输入猴子吃桃子的天数,默认为10\n请输入k=");
+fflush(stdin); //清除键盘缓冲区
+scanf("%d",&k);
+sum=MonkeyEatPeach(0,k); //对应第二种函数定义形式，具有扩展性
+//或sum=MonkeyDepartPeach(0)对应第一种函数定义
+printf("猴子第一天摘桃子为=%d",sum);
+getche();//程序暂停，便于观察运行结果
+}
