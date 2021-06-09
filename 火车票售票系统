@@ -1,0 +1,229 @@
+/*火车票售票系统*/
+#include<iostream>
+#include<fstream>
+#include<conio.h>
+#include<string>
+ using namespace std; struct node
+ {
+    string Num;
+    string DepartTime;
+    string BegPlace;
+    string EndPlace;
+    string RunTime;
+    int Capacity;
+    int HumNum;
+    node *Next;
+ }; class Busman
+ {
+    private:
+        node *BusHead;  //票信息头结点
+    public:
+        Busman(){BusHead=NULL;}
+        void FoundInfo();   //建表
+        void AddInfo();   //增记录
+        void SearchInfo();  //查询
+        void ShowInfo();  //显示
+        void ExitTicket();  //退票
+        void SellTicket();  //售票
+        void SaveInfo(); //保存
+ };
+ 
+ void Busman::FoundInfo()
+ {
+     node *p=NULL,*q;
+     int i,n;
+     cout<<"\n录入班次信息：\n";
+     cout<<"记录总数：";
+     cin>>n;
+     for (i=0; i<n; i++)
+     {
+         q=p;
+         p=new node;
+         cout<<"班次：";
+         cin>>p->Num;
+         cout<<"发车时间：";
+         cin>>p->DepartTime;
+         cout<<"起点：";
+         cin>>p->BegPlace;
+         cout<<"终点：";
+         cin>>p->EndPlace;
+         cout<<"行车时间：";
+         cin>>p->RunTime;
+         cout<<"客载量：";
+         cin>>p->Capacity;
+         p->HumNum=0;
+         if (Busman::BusHead==NULL)
+            Busman::BusHead=p;
+         else
+            q->Next=p;
+   cout<<endl;
+     }
+     p->Next=NULL;
+     cout<<"建立完毕！"<<endl;
+ }
+  
+ void Busman::AddInfo()
+ {
+    node *p,*q;
+    q=Busman::BusHead;
+    while (q->Next!=NULL) q=q->Next;
+         p=new node;
+         cout<<"班次：";
+         cin>>p->Num;
+         cout<<"发车时间：";
+         cin>>p->DepartTime;
+         cout<<"起点：";
+         cin>>p->BegPlace;
+         cout<<"终点：";
+         cin>>p->EndPlace;
+         cout<<"行车时间：";
+         cin>>p->RunTime;
+         cout<<"客载量：";
+         cin>>p->Capacity;
+         p->HumNum=0;
+   p->Next=NULL;
+         q->Next=p;
+    cout<<"添加成功！"<<endl;
+ } void Busman::ShowInfo()
+ {
+    string time;
+    node *p;
+    cout<<"当前时间为：";
+    cin>>time;
+    cout<<"班次"<<"\t"<<"发车时间"<<" "<<"起点"<<"\t"<<"终点"<<" "<<"行车时间"<<"\t"<<"客载量"<<"   "<<"订票人数"<<"发出"<<endl;
+    for (p=Busman::BusHead; p!=NULL; p=p->Next)
+    {
+        cout<<p->Num<<"\t"<<p->DepartTime<<"\t"<<p->BegPlace<<"\t"<<p->EndPlace<<"\t"<<p->RunTime<<"\t"<<p->Capacity<<"\t"<<p->HumNum;
+        if (time >= p->DepartTime) cout<<"(已发车)"<<endl;
+        else cout<<"(未发车)"<<endl;
+    }
+ }
+ 
+ void Busman::SearchInfo()
+ {
+    int sel;
+    string s;
+    node *p;
+    cout<<"(1)班次查找"<<endl;
+    cout<<"(2)终站查找"<<endl;
+    cout<<">>>>选择：";
+    cin>>sel;
+    if (sel==1)
+    {
+       cout<<"输入查找的班次号：";
+       cin>>s;
+    }
+    else if (sel=2)
+    {
+       cout<<"输入查找的终点名称：";
+       cin>>s;
+    }    cout<<"班次"<<"\t"<<"发车时间"<<" "<<"起点"<<"\t"<<"终点"<<" "<<"行车时间"<<"\t"<<"客载量"<<"   "<<"订票人数"<<"发出"<<endl;    for (p=Busman::BusHead; p!=NULL; p=p->Next)
+    {
+       if ((sel==1 && p->Num==s) || (sel==2 && p->EndPlace==s))
+       {
+           cout<<p->Num<<"\t"<<p->DepartTime<<"\t"<<p->BegPlace<<"\t"<<p->EndPlace<<"\t"<<p->RunTime<<"\t"<<p->Capacity<<"\t"<<p->HumNum;
+           break;
+       }
+    }
+    if (p==NULL)
+       cout<<"未找到！"<<endl;
+ } void Busman::ExitTicket()
+ {
+     string s,t;
+     node *p;
+     cout<<"退票的班次是：";
+     cin>>s;
+     for (p=BusHead; p!=NULL; p=p->Next)
+        if (p->Num==s) break;
+     if (p==NULL)
+     {
+        cout<<"未找到班次！"<<endl;
+        return;
+     }
+     cout<<"当前时间是：";
+     cin>>t;
+     if (t < p->DepartTime)
+     {
+         p->HumNum--;
+         cout<<"退票成功！"<<endl;
+     }
+ } void Busman::SellTicket()
+ {
+    string t,s;
+    node *p;
+    cout<<"售票的班次是：";
+    cin>>s;
+    for (p=BusHead; p!=NULL; p=p->Next)
+       if (p->Num==s) break;
+    if (p==NULL)
+    {
+       cout<<"未找到班次！"<<endl;
+       return;
+    }
+    cout<<"当前时间是：";
+    cin>>t;
+    if (t < p->DepartTime && p->HumNum+1 <= p->Capacity)
+    {
+       p->HumNum++;
+       cout<<"售票成功！"<<endl;
+    }
+    else
+    {
+       cout<<"该车已发或客载量已满！"<<endl;
+    }
+ }
+ 
+ void Busman::SaveInfo()
+ {
+ node *p;
+    ofstream Ocout("Info.txt");
+    Ocout<<"班次"<<"\t"<<"发车时间"<<" "<<"起点"<<"\t"<<"终点"<<" "<<"行车时间"<<"\t"<<"客载量"<<"   "<<"订票人数"<<"发出"<<endl;
+    for (p=Busman::BusHead; p!=NULL; p=p->Next)
+    {
+        Ocout<<p->Num<<"\t"<<p->DepartTime<<"\t"<<p->BegPlace<<"\t"<<p->EndPlace<<"\t"<<p->RunTime<<"\t"<<p->Capacity<<"\t"<<p->HumNum<<endl;
+    }
+ Ocout.close();
+    cout<<"保存成功！"<<endl;
+ } void ShowForm();
+ int main()
+ {
+    int sel;
+ Busman BusAdmin;
+    while (1)
+    {
+        system("cls");
+        ShowForm();
+        cin>>sel;
+        switch (sel)
+        {
+           case 1: BusAdmin.FoundInfo(); break;
+           case 2: BusAdmin.AddInfo(); break;
+           case 3: BusAdmin.ShowInfo(); break;
+           case 4: BusAdmin.SearchInfo(); break;
+           case 5: BusAdmin.SellTicket(); break;
+           case 6: BusAdmin.ExitTicket(); break;
+           case 7: BusAdmin.SaveInfo(); break;
+           case 0: return 0;
+        }
+        cout<<endl;
+  fflush(stdin);
+        cout<<"按任意键返回主菜单："<<endl;
+        getch();
+    }
+ }
+ 
+ void ShowForm()
+ {
+    cout<<"      [火车票务系统]    "<<endl;
+    cout<<"========================="<<endl;
+    cout<<"=  (1) 录入班次信息     ="<<endl;
+    cout<<"=  (2) 添加班次信息     ="<<endl;
+    cout<<"=  (3) 流览班次信息     ="<<endl;
+    cout<<"=  (4) 查询路线信息     ="<<endl;
+    cout<<"=  (5) 售票处理         ="<<endl;
+    cout<<"=  (6) 退票处理         ="<<endl;
+    cout<<"=  (7) 保存班次信息     ="<<endl;
+    cout<<"=  (0) 退出程序         ="<<endl;
+    cout<<"========================="<<endl;
+    cout<<">>>输入要执行的选项：";
+ } 
