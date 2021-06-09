@@ -1,0 +1,22 @@
+/*字符排序*/
+#include<stdio.h>
+#include<string.h>//string包含gets，puts，strlen函数
+void main()
+{
+	char n[500];//定义具有五百个字符的数组n，可以根据字符串的长度适当调整
+	int i,j,x,temp;
+	printf("输入n个字符串：");//屏幕输出"输入n个字符串:"
+	gets(n);//键盘敲入数组n
+	x=strlen(n);//将n数组的字符长度赋给x
+	for(i=0;i<=x-1-1;i++)//冒泡法排序：进行数组的ascii码排序，共需进行x-1-1组排序，0到x-1为数组n的长度x,故只需进行x-1-1组排序
+		for(j=0;j<x-1-i;j++)//第j组排序要排序为j<x-1-i次
+		{
+			if(n[j]>n[j+1])//如果这个数比下面一个数大，则这两个数互换
+			{
+				temp=n[j];
+				n[j]=n[j+1];
+				n[j+1]=temp;
+			}
+		}
+		puts(n);//输出排序后的字符数组n
+}
