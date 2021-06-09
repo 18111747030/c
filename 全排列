@@ -1,0 +1,27 @@
+/*全排列*/
+#include<stdio.h>
+#include<string.h>
+void f(char* s,int k)
+{ 
+   for(int i=k;i<strlen(s);i++)
+{
+char t=s[k];
+s[k]=s[i];
+s[i]=t;
+f(s,k+1);
+char o=s[k];
+s[k]=s[i];
+s[i]=o;
+} 
+   if(k==strlen(s)-1)
+{
+puts(s);
+}
+}
+main()
+{
+int k=0;
+char s[10]="ABC";
+f(s,k);
+return 0;
+}
