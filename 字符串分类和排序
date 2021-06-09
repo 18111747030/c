@@ -1,0 +1,68 @@
+/*字符串分类*/
+#include <stdio.h>
+#include <conio.h>
+#define LEN 100
+int lc=0,uc=0,d=0,s=0,o=0;   //统计各类别字符计数器：小写、大写、数字、空格等
+void Count(char[]);  //函数声明，字符数数组作为函数参数
+main()
+{
+ char ary[LEN+1];  //用来存放字符串
+ printf("请输入100个以内的任意字符\n");
+ printf("程序将按大小写字母、数字、空格和其他字符进行统计。\n");
+  printf("如果超出100个字符，程序将只对前100个字符进行统计：\n");
+ gets(ary); //字符串的输入函数，最常用的输入方法，可以输入任意字符
+  Count(ary);
+ printf("小写字母：%d\n",lc);
+ printf("大写字母：%d\n",uc);
+  printf("0－9数字：%d\n",d);
+ printf("空格：%d\n",s);
+  printf("其他字符：%d\n",o);
+  printf("按任意键退出...");
+ getch();
+}
+ 
+//处理函数
+
+void Count(char ary[])
+{
+  int i=0;
+ char c;
+  while(ary[i]) //或使用ary[i]!=’\0’，字符串处理的重要标志，判断是否为串结束符
+ {
+   c=ary[i];
+    if(c>='0'&& c<='9')//单个字符的比较，统计数字字符
+   d++;
+    else if(c>='a' && c<='z') //单个字符的比较，统计小写字符
+    lc++;
+ else if(c>='A' &&c<='Z')  //单个字符的比较，统计大写字符
+  uc++;
+  else if(c==' ')   //单个字符的比较，统计空格
+     s++;
+  else    //单个字符的比较，统计其它字符
+   o++;
+  i++;
+ }
+}
+
+/*字符串排序*/
+#include<stdio.h>
+#include<string.h>//string包含gets，puts，strlen函数
+void main()
+{
+	char n[500];//定义具有五百个字符的数组n，可以根据字符串的长度适当调整
+	int i,j,x,temp;
+	printf("输入n个字符串：");//屏幕输出"输入n个字符串:"
+	gets(n);//键盘敲入数组n
+	x=strlen(n);//将n数组的字符长度赋给x
+	for(i=0;i<=x-1-1;i++)//冒泡法排序：进行数组的ascii码排序，共需进行x-1-1组排序，0到x-1为数组n的长度x,故只需进行x-1-1组排序
+		for(j=0;j<x-1-i;j++)//第j组排序要排序为j<x-1-i次
+		{
+			if(n[j]>n[j+1])//如果这个数比下面一个数大，则这两个数互换
+			{
+				temp=n[j];
+				n[j]=n[j+1];
+				n[j+1]=temp;
+			}
+		}
+		puts(n);//输出排序后的字符数组n
+}
