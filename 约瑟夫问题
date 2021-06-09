@@ -1,0 +1,72 @@
+/*约瑟夫问题*/
+#include <stdio.h>
+
+ #include <string.h>
+
+ #include <conio.h>  //getch()需要
+
+ #define N 5
+
+ #define LEN 10
+
+  void JosephProblem(char[][LEN],int);   //二维数组作参数传递
+
+ main()
+
+{
+
+    char name[N][LEN];
+     int i,k;  //k表示数数到第k个人时即出队。
+    printf("请依次输入%d个人名(每个人名不超出10个字符)：\n",N);
+
+   for(i=0;i<N;i++)
+   {
+  scanf("%s",name[i]);
+     }
+
+   printf("\n请输入数到第几个人退出:");
+    scanf("%d",&k);  //输入数数
+     JosephProblem(name,k);  //函数调用语句
+     puts("Press any key toexit...");
+     getch();
+ }   
+
+ void JosephProblem(char ary[][LEN],int K)
+
+ {
+   int out=0;//出列人数统计（计数器），当out==N时，循环结束
+  int couter=0;//当前数到第几人，当couter==n时，标记该人退出，couter重置0
+ int idx=-1;   //数组的索引指针，当idx==N时，idx=0
+
+while(out<N)  //只要出列人数<总人数，即继续循环。
+
+  {
+ idx++;   //数组下标+1
+
+     if(idx==N)  //把数组索引指针看成循环指针来对待
+    idx=0;
+
+  if(strcmp(ary[idx],"\0")==0)    //字符串比较只能用 strcmp()函数
+
+       continue;  //表示该人员已经出队，不用再处理，直接进入下一轮
+
+   else
+
+   {
+
+   couter++;   //数数计数器+1
+
+  if(couter==K)  //数数到第K时，表示该人员出队
+    {
+
+ out++;
+
+  printf("第%2d个退出者：%s\n",out,ary[idx]);
+
+ strcpy(ary[idx],"\0");   //退出用"\0"标记
+ couter=0;
+       }
+       }
+   }  
+ }
+
