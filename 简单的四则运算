@@ -1,0 +1,35 @@
+/*简单的四则运算*/
+#include "stdio.h"
+void main()
+{
+ int a, b;
+char op, answer = 'y';
+ do
+ {
+ printf("------------简易计算器V1.0-------------\n");
+ printf("请输入两个操作数和运算符：");
+ scanf("%d%c%d",&a, &op, &b);
+ scanf("%c",&answer);//过滤掉回车字符
+ switch( op )
+ {
+ case '+':
+ printf("%d + %d =%d\n", a, b, a+b);
+ break;
+case '-':
+ printf("%d - %d =%d\n", a, b, a-b);
+ break;
+ case '*':
+ printf("%d * %d =%d\n", a, b, a*b);
+ break;
+ case '/':
+ printf("%d / %d =%d\n", a, b, a/b);
+break;
+ default:
+ printf("输入错误的运算符，请重新输入！\n");
+ break;
+ }
+ printf("是否还需要再次计算，如果需要，键入y，否则n:");
+ scanf("%c",&answer);
+ }
+ while( answer == 'y' );
+}
