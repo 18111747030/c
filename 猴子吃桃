@@ -1,0 +1,26 @@
+/*猴子吃桃问题*/
+#include "stdio.h"
+ int peachcount(int n)
+ {
+
+   int count=1;
+
+   int i;
+
+   for(i=1;i<n;i++)
+   {
+      count=(count+1)*2;
+   }
+    return count;
+ }
+ void main()
+ {
+    int n;
+    printf("----------猴子吃桃问题------------\n");
+ printf("请输入猴子在第几天过后吃得只剩下了一个桃子：");
+ scanf("%d",&n);
+	int count;
+    count=peachcount(n);
+    printf("猴子在第%d天过后吃得只剩下了一个桃子，");
+ printf("第一天所摘下的桃子数为%d个\n",n,count);
+ }
