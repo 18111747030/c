@@ -1,0 +1,36 @@
+/*诺塔问题*/
+#include "stdio.h"
+#include "math.h"
+int  n; /*记录操作步骤数*/
+void HanoiExt(int num, char A, char B, char C)/*num个盘子从A经过B移动到C*/
+{
+	if(num==1)/*退出递归调用*/
+	{
+		if(abs(A-C)==1)/*相邻柱*/
+		{
+			n++;
+			printf("第%d步: %c->%c\n",n,A,C);
+		}
+		if(abs(A-C)==2)/*非相邻柱*/
+		{
+			n++;
+			printf("第%d步: %c->%c\n",n,A,B);
+			n++;
+	        printf("第%d步: %c->%c\n",n,B,C);
+		}
+	}else/*递归调用*/
+	{
+		HanoiExt(num-1,A,B,C);
+        HanoiExt(1,A,C,B);
+        HanoiExt(num-1,C,B,A);
+        HanoiExt(1,B,A,C);
+        HanoiExt(num-1,A,B,C);
+	}
+}
+void main()
+{
+	int num;/*用户输入盘子个数*/
+	printf("请输入盘子个数\n");
+	scanf("%d",&num);
+		HanoiExt(num,'A','B','C');
+}
